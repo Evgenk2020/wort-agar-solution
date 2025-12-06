@@ -1,3 +1,27 @@
+<p align="center">
+  <a href="https://github.com/Evgenk2020/wort-agar-solution/blob/main/LICENSE">
+    <img src="https://img.shields.io/github/license/Evgenk2020/wort-agar-solution" alt="license">
+  </a>
+  <a href="https://github.com/Evgenk2020/wort-agar-solution/commits">
+    <img src="https://img.shields.io/github/last-commit/Evgenk2020/wort-agar-solution" alt="last commit">
+  </a>
+  <a href="https://github.com/Evgenk2020/wort-agar-solution">
+    <img src="https://img.shields.io/github/repo-size/Evgenk2020/wort-agar-solution" alt="repo size">
+  </a>
+  <a href="https://github.com/Evgenk2020/wort-agar-solution/stargazers">
+    <img src="https://img.shields.io/github/stars/Evgenk2020/wort-agar-solution" alt="stars">
+  </a>
+  <a href="https://github.com/Evgenk2020/wort-agar-solution/network/members">
+    <img src="https://img.shields.io/github/forks/Evgenk2020/wort-agar-solution" alt="forks">
+  </a>
+  <a href="https://github.com/Evgenk2020/wort-agar-solution">
+    <img src="https://img.shields.io/github/languages/top/Evgenk2020/wort-agar-solution" alt="top language">
+  </a>
+  <a href="https://github.com/Evgenk2020/wort-agar-solution/releases">
+    <img src="https://img.shields.io/github/v/release/Evgenk2020/wort-agar-solution" alt="latest release">
+  </a>
+</p>
+
 # Nutrition medium dilution
 
 Lab utility for determining the concentration of a wort agar medium solution via preparing from natural raw components
