@@ -36,7 +36,7 @@ wort -d | -df [data...]
 
 Using `-df` key you may write data to `*.csv` file for the next importing to LibreOffice Calc, MS Excell or Google Tables
 
-![Google table data import](/img/screen.png)
+![Google table data import](/.img/screen.png)
 
 Use `build.sh` and `run.sh` from the `src` folder to compile and run the application
 
