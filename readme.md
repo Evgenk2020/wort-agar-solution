@@ -20,6 +20,10 @@
   <a href="https://github.com/Evgenk2020/wort-agar-solution/releases">
     <img src="https://img.shields.io/github/v/release/Evgenk2020/wort-agar-solution" alt="latest release">
   </a>
+  <!-- Added version badge -->
+  <a href="https://github.com/Evgenk2020/wort-agar-solution">
+    <img src="https://img.shields.io/badge/version-1.0.2-blue" alt="version">
+  </a>
 </p>
 
 # Nutrition medium dilution
