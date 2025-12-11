@@ -140,7 +140,6 @@ For more convenience you may add path to the application into `.bashrc` file
 
 export PATH=$PATH:/%path_to_application_folder%/
 
-
 ```
 
 In this case it will be possible to run `wort -d | -df [data...]` in terminal directly.
