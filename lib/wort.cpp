@@ -40,7 +40,7 @@ std::unique_ptr<wort> solution::solutions(solution_type types)
 
     default:
     {
-        throw "Ошибка. Нет данных...";
+        throw "Помилка. Відсутні дані...";
     }
     }
 }
@@ -49,7 +49,7 @@ float finished_water::get_solvation(wort_solution wrt) const
 {
     if (wrt.finish_wort == 0)
     {
-        std::cout << "Ошибка... значение не может быть равным нулю" << std::endl;
+        std::cout << "Помилка... Значення не може дорівнювати нулю" << std::endl;
         exit(1);
     }
 
