@@ -7,33 +7,33 @@ general_info::~general_info() {}
 
 void help_info::see_info()
 {
-    auto see_print = [](std::string value, bool epmty_line = false) -> void
+    auto see_print = [](std::string value, int epmty_line = 0) -> void
     {
-        epmty_line ? (std::cout << value << std::endl << std::endl) : (std::cout << value << std::endl);
+        (epmty_line != 0) ? (std::cout << value << std::endl << std::endl) : (std::cout << value << std::endl);
     };
 
-    see_print("*** Визначення об'єму компонентів суслового агару з натуральної сировини ***", true);
+    see_print("*** Визначення об'єму компонентів суслового агару з натуральної сировини ***", 1);
     see_print("Для виводу в термінал:");
-    see_print("-d [початкова концентрація (%)] [кінцева концентрація (%)] [об'єм фільтрату (мл)]", true);
+    see_print("-d [початкова концентрація (%)] [кінцева концентрація (%)] [об'єм фільтрату (мл)]", 1);
     see_print("Для виводу у файл:");
-    see_print("-df [початкова концентрація (%)] [кінцева концентрація (%)] [об'єм фільтрату (мл)]", true);
+    see_print("-df [початкова концентрація (%)] [кінцева концентрація (%)] [об'єм фільтрату (мл)]", 1);
     see_print("Для довідки:");
-    see_print("-h | --help", true);
+    see_print("-h | --help", 1);
     see_print("Додаткова інформація:");
     see_print("-i");
 }
 
 void inf_indo::see_info()
 {
-     auto see_print = [](std::string value, bool epmty_line = false) -> void
+     auto see_print = [](std::string value, int epmty_line = 0) -> void
     {
-        epmty_line ? (std::cout << value << std::endl << std::endl) : (std::cout << value << std::endl);
+        (epmty_line != 0) ? (std::cout << value << std::endl << std::endl) : (std::cout << value << std::endl);
     };
 
     see_print("В лабораторних умовах приготування розчину заданої");
     see_print("масової чатки розчиненої речовини з розчинів");
     see_print("з відомою масовою часткою здійснюється відповідно правилу хреста:");
-    see_print("m1 * W1 + m2 * W2 = W3 * (m1 + m2)", true);
+    see_print("m1 * W1 + m2 * W2 = W3 * (m1 + m2)", 1);
     see_print("Утиліта визначає дані:");
     see_print("- об'єм води для розведення концентрованого розчину");
     see_print("- об'єм розведеного розчину");
