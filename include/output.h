@@ -40,7 +40,7 @@ public:
 class file_info : public data_info
 {
 public:
-    void see_info(wort_solution *wrt) override; 
+    void see_info(wort_solution *wrt) override;
 };
 
 //--------------------------------------------------
