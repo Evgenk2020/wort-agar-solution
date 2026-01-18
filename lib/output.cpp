@@ -3,6 +3,8 @@
 #include <locale>
 #include "../include/output.h"
 
+#include <sstream>
+
 general_info::~general_info() {}
 
 void help_info::see_info()
@@ -26,6 +28,22 @@ void help_info::see_info()
     see_print("-h | --help", lines::line_empty);
     see_print("Додаткова інформація:");
     see_print("-i");
+
+    // *****************************************************
+    float a = 2.33f;
+
+    auto fm_st = [](float &inp) -> std::string
+    {
+        std::locale ua("uk_UA.UTF-8");
+        std::ostringstream oss;
+        oss.imbue(ua);
+        oss << inp;
+
+        return oss.str();
+    };
+
+    std::cout << fm_st(a) << std::endl;
+    // *****************************************************
 }
 
 void inf_indo::see_info()
