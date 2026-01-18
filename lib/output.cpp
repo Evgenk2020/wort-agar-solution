@@ -30,7 +30,7 @@ void help_info::see_info()
     see_print("-i");
 
     // *****************************************************
-    float a = 2.33f;
+    /* float a = 2.33f;
 
     auto fm_st = [](float &inp) -> std::string
     {
@@ -42,7 +42,7 @@ void help_info::see_info()
         return oss.str();
     };
 
-    std::cout << fm_st(a) << std::endl;
+    std::cout << fm_st(a) << std::endl; */
     // *****************************************************
 }
 
