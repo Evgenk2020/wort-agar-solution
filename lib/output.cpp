@@ -4,30 +4,26 @@
 #include "../include/output.h"
 
 #include <sstream>
+#include <format>
 
 general_info::~general_info() {}
 
 void help_info::see_info()
 {
-    enum lines
-    {
-        line_empty
-    };
+    std::cout << R"(*** Визначення об'єму компонентів суслового агару з натуральної сировини ***
 
-    auto see_print = [](std::string value, int epmty_line = 0) -> void
-    {
-        (epmty_line == lines::line_empty) ? (std::cout << value << std::endl << std::endl) : (std::cout << value << std::endl);
-    };
+Для виводу в термінал:
+-d [початкова концентрація (%)] [кінцева концентрація (%)] [об'єм фільтрату (мл)]
 
-    see_print("*** Визначення об'єму компонентів суслового агару з натуральної сировини ***", lines::line_empty);
-    see_print("Для виводу в термінал:");
-    see_print("-d [початкова концентрація (%)] [кінцева концентрація (%)] [об'єм фільтрату (мл)]", lines::line_empty);
-    see_print("Для виводу у файл:");
-    see_print("-df [початкова концентрація (%)] [кінцева концентрація (%)] [об'єм фільтрату (мл)]", lines::line_empty);
-    see_print("Для довідки:");
-    see_print("-h | --help", lines::line_empty);
-    see_print("Додаткова інформація:");
-    see_print("-i");
+Для виводу у файл:
+-df [початкова концентрація (%)] [кінцева концентрація (%)] [об'єм фільтрату (мл)]
+
+Для довідки:
+-h | --help
+
+Додаткова інформація:
+-i
+)";
 
     // *****************************************************
     /* float a = 2.33f;
@@ -48,25 +44,17 @@ void help_info::see_info()
 
 void inf_indo::see_info()
 {
-    enum lines
-    {
-        line_empty
-    };
+    std::cout << R"(В лабораторних умовах приготування розчину заданої
+масової чатки розчиненої речовини з розчинів
+з відомою масовою часткою здійснюється відповідно правилу хреста:
+m1 * W1 + m2 * W2 = W3 * (m1 + m2)
 
-     auto see_print = [](std::string value, int epmty_line = 0) -> void
-    {
-        (epmty_line == lines::line_empty) ? (std::cout << value << std::endl << std::endl) : (std::cout << value << std::endl);
-    };
-
-    see_print("В лабораторних умовах приготування розчину заданої");
-    see_print("масової чатки розчиненої речовини з розчинів");
-    see_print("з відомою масовою часткою здійснюється відповідно правилу хреста:");
-    see_print("m1 * W1 + m2 * W2 = W3 * (m1 + m2)", lines::line_empty);
-    see_print("Утиліта визначає дані:");
-    see_print("- об'єм води для розведення концентрованого розчину");
-    see_print("- об'єм розведеного розчину");
-    see_print("виходячи з концентрації початкового розчину, об'єму фільтрата");
-    see_print("і концентрації розчину, який готується");
+Утиліта визначає дані:
+- об'єм води для розведення концентрованого розчину
+- об'єм розведеного розчину
+виходячи з концентрації початкового розчину, об'єму фільтрата
+і концентрації розчину, який готується
+)";
 }
 
 //--------------------------------------------------
@@ -75,13 +63,32 @@ data_info::~data_info() {}
 
 void screen_info::see_info(wort_solution *wrt)
 {
-    std::cout << "Концентрація нерозведеного розчина: " << wrt->first_wort << " %" << std::endl;
+    solution sol;
+
+    auto screen_line = [&wrt, sol]() -> std::string
+    {
+        return std::format(
+            "Концентрація нерозведеного розчина: {}%\n"
+            "Концентрація розведеного розчина: {}%\n"
+            "Об'єм фільтрата: {} мл\n"
+            "Об'єм води для розчинення: {} мл\n"
+            "Об'єм розчиненого середовища: {} мл\n",
+            wrt->first_wort,
+            wrt->finish_wort,
+            wrt->vol_filtrate,
+            sol.solutions(sol.water_for_solvation)->get_solvation(*wrt),
+            sol.solutions(sol.total_volume)->get_solvation(*wrt));
+    };
+
+    std::cout << screen_line();
+
+    /* std::cout << "Концентрація нерозведеного розчина: " << wrt->first_wort << " %" << std::endl;
     std::cout << "Концентрація розведеного розчина: " << wrt->finish_wort << " %" << std::endl;
     std::cout << "Об'єм фільтрата: " << wrt->vol_filtrate << " мл" << std::endl;
 
     solution sol;
     std::cout << "Об'єм води для розчинення: " << sol.solutions(sol.water_for_solvation)->get_solvation(*wrt) << " мл" << std::endl;
-    std::cout << "Об'єм розчиненого середовища: " << sol.solutions(sol.total_volume)->get_solvation(*wrt) << " мл" << std::endl;
+    std::cout << "Об'єм розчиненого середовища: " << sol.solutions(sol.total_volume)->get_solvation(*wrt) << " мл" << std::endl; */
 }
 
 void file_info::see_info(wort_solution *wrt)
