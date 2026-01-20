@@ -22,10 +22,62 @@ void help_info::see_info()
 -h | --help
 
 Додаткова інформація:
--i
-)";
+-i)" << std::endl;
+}
 
-    // *****************************************************
+void inf_indo::see_info()
+{
+    std::cout << R"(В лабораторних умовах приготування розчину заданої
+масової чатки розчиненої речовини з розчинів
+з відомою масовою часткою здійснюється відповідно правилу хреста:
+m1 * W1 + m2 * W2 = W3 * (m1 + m2)
+
+Утиліта визначає дані:
+- об'єм води для розведення концентрованого розчину
+- об'єм розведеного розчину
+виходячи з концентрації початкового розчину, об'єму фільтрата
+і концентрації розчину, який готується)" << std::endl;
+}
+
+//--------------------------------------------------
+
+data_info::~data_info() {}
+
+void screen_info::see_info(wort_solution *wrt)
+{
+    solution sol;
+
+    struct liter
+    {
+        std::string one, two;
+    };
+
+    liter ltt;
+    ltt.one = std::format("{:.2f}", sol.solutions(sol.water_for_solvation)->get_solvation(*wrt));
+    ltt.two = std::format("{:.2f}", sol.solutions(sol.total_volume)->get_solvation(*wrt));
+
+    auto screen_line = [&wrt, &ltt]() -> std::string
+    {
+        return std::format(
+            "Концентрація нерозведеного розчина: {}%\n"
+            "Концентрація розведеного розчина: {}%\n"
+            "Об'єм фільтрата: {} мл\n"
+            "Об'єм води для розчинення: {} мл\n"
+            "Об'єм розчиненого середовища: {} мл",
+            wrt->first_wort,
+            wrt->finish_wort,
+            wrt->vol_filtrate,
+            ltt.one,
+            ltt.two
+        );
+    };
+
+    std::cout << screen_line() << std::endl;
+}
+
+void file_info::see_info(wort_solution *wrt)
+{
+     // *****************************************************
     /* float a = 2.33f;
 
     auto fm_st = [](float &inp) -> std::string
@@ -40,59 +92,7 @@ void help_info::see_info()
 
     std::cout << fm_st(a) << std::endl; */
     // *****************************************************
-}
 
-void inf_indo::see_info()
-{
-    std::cout << R"(В лабораторних умовах приготування розчину заданої
-масової чатки розчиненої речовини з розчинів
-з відомою масовою часткою здійснюється відповідно правилу хреста:
-m1 * W1 + m2 * W2 = W3 * (m1 + m2)
-
-Утиліта визначає дані:
-- об'єм води для розведення концентрованого розчину
-- об'єм розведеного розчину
-виходячи з концентрації початкового розчину, об'єму фільтрата
-і концентрації розчину, який готується
-)";
-}
-
-//--------------------------------------------------
-
-data_info::~data_info() {}
-
-void screen_info::see_info(wort_solution *wrt)
-{
-    solution sol;
-
-    auto screen_line = [&wrt, sol]() -> std::string
-    {
-        return std::format(
-            "Концентрація нерозведеного розчина: {}%\n"
-            "Концентрація розведеного розчина: {}%\n"
-            "Об'єм фільтрата: {} мл\n"
-            "Об'єм води для розчинення: {} мл\n"
-            "Об'єм розчиненого середовища: {} мл\n",
-            wrt->first_wort,
-            wrt->finish_wort,
-            wrt->vol_filtrate,
-            sol.solutions(sol.water_for_solvation)->get_solvation(*wrt),
-            sol.solutions(sol.total_volume)->get_solvation(*wrt));
-    };
-
-    std::cout << screen_line();
-
-    /* std::cout << "Концентрація нерозведеного розчина: " << wrt->first_wort << " %" << std::endl;
-    std::cout << "Концентрація розведеного розчина: " << wrt->finish_wort << " %" << std::endl;
-    std::cout << "Об'єм фільтрата: " << wrt->vol_filtrate << " мл" << std::endl;
-
-    solution sol;
-    std::cout << "Об'єм води для розчинення: " << sol.solutions(sol.water_for_solvation)->get_solvation(*wrt) << " мл" << std::endl;
-    std::cout << "Об'єм розчиненого середовища: " << sol.solutions(sol.total_volume)->get_solvation(*wrt) << " мл" << std::endl; */
-}
-
-void file_info::see_info(wort_solution *wrt)
-{
     std::ofstream writer("wort-dada.csv", std::ios::app);
     const char coma = ',';
     const char quo = '\"';
