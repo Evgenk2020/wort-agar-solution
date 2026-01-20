@@ -1,43 +1,45 @@
+#include "../include/output.h"
+
 #include <iostream>
 #include <fstream>
 #include <locale>
-#include "../include/output.h"
-
-#include <sstream>
+#include <print>
 #include <format>
+#include <vector>
 
 general_info::~general_info() {}
 
 void help_info::see_info()
 {
-    std::cout << R"(*** Визначення об'єму компонентів суслового агару з натуральної сировини ***
-
-Для виводу в термінал:
--d [початкова концентрація (%)] [кінцева концентрація (%)] [об'єм фільтрату (мл)]
-
-Для виводу у файл:
--df [початкова концентрація (%)] [кінцева концентрація (%)] [об'єм фільтрату (мл)]
-
-Для довідки:
--h | --help
-
-Додаткова інформація:
--i)" << std::endl;
+    std::println(
+        "*** Визначення об'єму компонентів суслового агару з натуральної сировини ***\n"
+        "\n"
+        "Для виводу в термінал:\n"
+        "d [початкова концентрація (%)] [кінцева концентрація (%)] [об'єм фільтрату (мл)]\n"
+        "\n"
+        "Для виводу у файл:\n"
+        "-df [початкова концентрація (%)] [кінцева концентрація (%)] [об'єм фільтрату (мл)]\n"
+        "\n"
+        "Для довідки:\n"
+        "-h | --help\n"
+        "\n"
+        "Додаткова інформація:\n"
+        "-i");
 }
 
 void inf_indo::see_info()
 {
-    std::cout << R"(В лабораторних умовах приготування розчину заданої
-масової чатки розчиненої речовини з розчинів
-з відомою масовою часткою здійснюється відповідно правилу хреста:
-m1 * W1 + m2 * W2 = W3 * (m1 + m2)
-
-Утиліта визначає дані:
-- об'єм води для розведення концентрованого розчину
-- об'єм розведеного розчину
-виходячи з концентрації початкового розчину, об'єму фільтрата
-і концентрації розчину, який готується)"
-              << std::endl;
+    std::println(
+        "В лабораторних умовах приготування розчину заданої\n"
+        "масової чатки розчиненої речовини з розчинів\n"
+        "з відомою масовою часткою здійснюється відповідно правилу хреста:\n"
+        "m1 * W1 + m2 * W2 = W3 * (m1 + m2)\n"
+        "\n"
+        "Утиліта визначає дані:\n"
+        "- об'єм води для розведення концентрованого розчину\n"
+        "- об'єм розведеного розчину\n"
+        "виходячи з концентрації початкового розчину, об'єму фільтрата\n"
+        "і концентрації розчину, який готується");
 }
 
 //--------------------------------------------------
@@ -46,31 +48,17 @@ data_info::~data_info() {}
 
 void screen_info::see_info(wort_solution *wrt)
 {
-    struct liter
+    std::vector<std::string> line;
+    line.push_back(std::format("Концентрація нерозведеного розчина: {}%\n", wrt->first_wort));
+    line.push_back(std::format("Концентрація розведеного розчина: {}%\n", wrt->finish_wort));
+    line.push_back(std::format("Об'єм фільтрата: {} мл\n", wrt->vol_filtrate));
+    line.push_back(std::format("Об'єм води для розчинення: {:.2f} мл\n", sol.solutions(sol.water_for_solvation)->get_solvation(*wrt)));
+    line.push_back(std::format("Об'єм розчиненого середовища: {:.2f} мл\n", sol.solutions(sol.total_volume)->get_solvation(*wrt)));
+
+    for (auto &a : line)
     {
-        std::string one, two;
-    };
-
-    liter ltt;
-    ltt.one = std::format("{:.2f}", sol.solutions(sol.water_for_solvation)->get_solvation(*wrt));
-    ltt.two = std::format("{:.2f}", sol.solutions(sol.total_volume)->get_solvation(*wrt));
-
-    auto screen_line = [&wrt, &ltt]() -> std::string
-    {
-        return std::format(
-            "Концентрація нерозведеного розчина: {}%\n"
-            "Концентрація розведеного розчина: {}%\n"
-            "Об'єм фільтрата: {} мл\n"
-            "Об'єм води для розчинення: {} мл\n"
-            "Об'єм розчиненого середовища: {} мл",
-            wrt->first_wort,
-            wrt->finish_wort,
-            wrt->vol_filtrate,
-            ltt.one,
-            ltt.two);
-    };
-
-    std::cout << screen_line() << std::endl;
+        std::cout << a;
+    }
 }
 
 void file_info::see_info(wort_solution *wrt)
