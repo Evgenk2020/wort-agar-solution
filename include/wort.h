@@ -14,7 +14,7 @@ class wort
 {
 public:
     virtual float get_solvation(wort_solution wrt) const = 0;
-    ~wort();
+    ~wort() = default;
 };
 
 class solution
@@ -27,7 +27,7 @@ public:
     };
 
     static std::unique_ptr<wort> solutions(solution_type types);
-    ~solution();
+    ~solution() = default;
 };
 
 #endif // WORT_H

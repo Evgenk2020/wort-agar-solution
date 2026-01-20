@@ -14,6 +14,7 @@ else
 fi
 
 cmake ..
+make clean
 make
 cpack
 

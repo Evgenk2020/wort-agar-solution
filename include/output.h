@@ -26,6 +26,9 @@ public:
 
 class data_info
 {
+protected:
+    solution sol;
+
 public:
     virtual void see_info(wort_solution *wrt) = 0;
     virtual ~data_info();

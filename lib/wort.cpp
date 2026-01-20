@@ -2,9 +2,6 @@
 #include <stdexcept>
 #include "../include/wort.h"
 
-wort::~wort() {}
-solution::~solution() {}
-
 class finished_water : public wort
 {
 public:
