@@ -7,8 +7,6 @@
 #include <format>
 #include <vector>
 
-general_info::~general_info() {}
-
 void help_info::see_info()
 {
     std::println(
@@ -43,8 +41,6 @@ void inf_indo::see_info()
 }
 
 //--------------------------------------------------
-
-data_info::~data_info() {}
 
 void screen_info::see_info(wort_solution *wrt)
 {
