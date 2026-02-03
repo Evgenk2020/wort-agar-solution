@@ -58,10 +58,9 @@ void file_info::see_info(wort_solution *wrt)
     namespace file_system = std::filesystem;
     const file_system::path file{"wort-dada.csv"};
     std::ofstream csv(file, std::ios::app);
-    // csv.imbue(std::locale{"uk_UA.utf8"});
-
+    
     auto loc = std::locale{"uk_UA.utf8"};
-    constexpr std::string_view formatter = "\"{}\",\"{:L}\",\"{}\"\n";
+    constexpr std::string_view formatter = "\"{}\",\"{:.2Lf}\",\"{}\"\n";
 
     csv << std::format(loc, formatter, "Концентрація нерозведеного розчина:", wrt->first_wort, "%");
     csv << std::format(loc, formatter, "Концентрація розведеного розчина:", wrt->finish_wort, "%");
@@ -69,22 +68,6 @@ void file_info::see_info(wort_solution *wrt)
     csv << std::format(loc, formatter, "Об'єм води для розчинення:", sol.solutions(sol.water_for_solvation)->get_solvation(*wrt), "мл");
     csv << std::format(loc, formatter, "Об'єм розчиненого середовища:", sol.solutions(sol.total_volume)->get_solvation(*wrt), "мл");
     csv << std::endl;
-    
-
-
-    /* std::ofstream writer("wort-dada.csv", std::ios::app);
-    const char coma = ',';
-    const char quo = '\"';
-
-    std::locale m_loc("uk_UA.utf8");
-    writer.imbue(m_loc);
-
-    writer << quo << "Концентрація нерозведеного розчина:" << quo << coma << quo << wrt->first_wort << quo << coma << quo << "%" << quo << std::endl;
-    writer << quo << "Концентрація розведеного розчина:" << quo << coma << quo << wrt->finish_wort << quo << coma << quo << "%" << quo << std::endl;
-    writer << quo << "Об'єм фільтрата:" << quo << coma << quo << wrt->vol_filtrate << quo << coma << quo << "мл" << quo << std::endl;
-    writer << quo << "Об'єм води для розчинення:" << quo << coma << quo << sol.solutions(sol.water_for_solvation)->get_solvation(*wrt) << quo << coma << quo << "мл" << quo << std::endl;
-    writer << quo << "Об'єм розчиненого середовища:" << quo << coma << quo << sol.solutions(sol.total_volume)->get_solvation(*wrt) << quo << coma << quo << "мл" << quo << std::endl;
-    writer << "" << std::endl; */
 
     std::cout << "Дані додані у файл wort-dada.csv" << std::endl;
 }
