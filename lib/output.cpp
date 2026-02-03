@@ -7,6 +7,8 @@
 #include <format>
 #include <vector>
 
+#include <filesystem>
+
 void help_info::see_info()
 {
     std::println(
@@ -69,7 +71,20 @@ void file_info::see_info(wort_solution *wrt)
     std::cout << fm_st(a) << std::endl; */
     // *****************************************************
 
-    std::ofstream writer("wort-dada.csv", std::ios::app);
+    namespace file_system = std::filesystem;
+    const file_system::path file{"one-rstat.csv"};
+    std::ofstream csv(file, std::ios::app);
+    csv.imbue(std::locale{"uk_UA.utf8"});
+
+    csv << std::format("\"{}\",\"{}\",\"{}\"", "Концентрація нерозведеного розчина:", wrt->first_wort, "%");
+
+    
+
+
+
+
+
+    /* std::ofstream writer("wort-dada.csv", std::ios::app);
     const char coma = ',';
     const char quo = '\"';
 
@@ -81,7 +96,7 @@ void file_info::see_info(wort_solution *wrt)
     writer << quo << "Об'єм фільтрата:" << quo << coma << quo << wrt->vol_filtrate << quo << coma << quo << "мл" << quo << std::endl;
     writer << quo << "Об'єм води для розчинення:" << quo << coma << quo << sol.solutions(sol.water_for_solvation)->get_solvation(*wrt) << quo << coma << quo << "мл" << quo << std::endl;
     writer << quo << "Об'єм розчиненого середовища:" << quo << coma << quo << sol.solutions(sol.total_volume)->get_solvation(*wrt) << quo << coma << quo << "мл" << quo << std::endl;
-    writer << "" << std::endl;
+    writer << "" << std::endl; */
 
     std::cout << "Дані додані у файл wort-dada.csv" << std::endl;
 }
