@@ -55,33 +55,21 @@ void screen_info::see_info(wort_solution *wrt)
 
 void file_info::see_info(wort_solution *wrt)
 {
-    // *****************************************************
-    /* float a = 2.33f;
-
-    auto fm_st = [](float &inp) -> std::string
-    {
-        std::locale ua("uk_UA.UTF-8");
-        std::ostringstream oss;
-        oss.imbue(ua);
-        oss << inp;
-
-        return oss.str();
-    };
-
-    std::cout << fm_st(a) << std::endl; */
-    // *****************************************************
-
     namespace file_system = std::filesystem;
-    const file_system::path file{"one-rstat.csv"};
+    const file_system::path file{"wort-dada.csv"};
     std::ofstream csv(file, std::ios::app);
-    csv.imbue(std::locale{"uk_UA.utf8"});
+    // csv.imbue(std::locale{"uk_UA.utf8"});
 
-    csv << std::format("\"{}\",\"{}\",\"{}\"", "Концентрація нерозведеного розчина:", wrt->first_wort, "%");
+    auto loc = std::locale{"uk_UA.utf8"};
+    constexpr std::string_view formatter = "\"{}\",\"{:L}\",\"{}\"\n";
 
+    csv << std::format(loc, formatter, "Концентрація нерозведеного розчина:", wrt->first_wort, "%");
+    csv << std::format(loc, formatter, "Концентрація розведеного розчина:", wrt->finish_wort, "%");
+    csv << std::format(loc, formatter, "Об'єм фільтрата:", wrt->vol_filtrate, "мл");
+    csv << std::format(loc, formatter, "Об'єм води для розчинення:", sol.solutions(sol.water_for_solvation)->get_solvation(*wrt), "мл");
+    csv << std::format(loc, formatter, "Об'єм розчиненого середовища:", sol.solutions(sol.total_volume)->get_solvation(*wrt), "мл");
+    csv << std::endl;
     
-
-
-
 
 
     /* std::ofstream writer("wort-dada.csv", std::ios::app);
