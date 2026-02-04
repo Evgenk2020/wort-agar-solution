@@ -7,10 +7,10 @@ bld_target=$curr/build
 
 if [ -d $bld_target ]
 then
-  cd $bld_target
+    cd $bld_target
 else
-  mkdir $bld_target
-  cd $bld_target
+    mkdir $bld_target
+    cd $bld_target
 fi
 
 cmake ..

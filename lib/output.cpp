@@ -5,8 +5,6 @@
 #include <locale>
 #include <print>
 #include <format>
-#include <vector>
-
 #include <filesystem>
 
 void help_info::see_info()
@@ -58,7 +56,7 @@ void file_info::see_info(wort_solution *wrt)
     namespace file_system = std::filesystem;
     const file_system::path file{"wort-dada.csv"};
     std::ofstream csv(file, std::ios::app);
-    
+
     auto loc = std::locale{"uk_UA.utf8"};
     constexpr std::string_view formatter = "\"{}\",\"{:.2Lf}\",\"{}\"\n";
 
@@ -68,7 +66,7 @@ void file_info::see_info(wort_solution *wrt)
     csv << std::format(loc, formatter, "Об'єм води для розчинення:", sol.solutions(sol.water_for_solvation)->get_solvation(*wrt), "мл");
     csv << std::format(loc, formatter, "Об'єм розчиненого середовища:", sol.solutions(sol.total_volume)->get_solvation(*wrt), "мл");
     csv << std::endl;
-
+    
     std::cout << "Дані додані у файл wort-dada.csv" << std::endl;
 }
 
