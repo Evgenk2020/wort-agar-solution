@@ -58,13 +58,13 @@ void file_info::see_info(wort_solution *wrt)
     std::ofstream csv(file, std::ios::app);
 
     auto loc = std::locale{"uk_UA.utf8"};
-    constexpr std::string_view formatter = "\"{}\",\"{:.2Lf}\",\"{}\"\n";
+    constexpr std::string_view formatter = "\"{}\",\"{:.2Lf}\"\n";
 
-    csv << std::format(loc, formatter, "Концентрація нерозведеного розчина:", wrt->first_wort, "%");
-    csv << std::format(loc, formatter, "Концентрація розведеного розчина:", wrt->finish_wort, "%");
-    csv << std::format(loc, formatter, "Об'єм фільтрата:", wrt->vol_filtrate, "мл");
-    csv << std::format(loc, formatter, "Об'єм води для розчинення:", sol.solutions(sol.water_for_solvation)->get_solvation(*wrt), "мл");
-    csv << std::format(loc, formatter, "Об'єм розчиненого середовища:", sol.solutions(sol.total_volume)->get_solvation(*wrt), "мл");
+    csv << std::format(loc, formatter, "Концентрація нерозведеного розчина (%):", wrt->first_wort);
+    csv << std::format(loc, formatter, "Концентрація розведеного розчина (%):", wrt->finish_wort);
+    csv << std::format(loc, formatter, "Об'єм фільтрата (мл):", wrt->vol_filtrate);
+    csv << std::format(loc, formatter, "Об'єм води для розчинення (мл):", sol.solutions(sol.water_for_solvation)->get_solvation(*wrt));
+    csv << std::format(loc, formatter, "Об'єм розчиненого середовища (мл):", sol.solutions(sol.total_volume)->get_solvation(*wrt));
     csv << std::endl;
     
     std::print("Дані додані у файл wort-dada.csv\n");
