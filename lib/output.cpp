@@ -44,11 +44,11 @@ void inf_indo::see_info()
 
 void screen_info::see_info(wort_solution *wrt)
 {
-    std::cout << std::format("Концентрація нерозведеного розчина: {}%\n", wrt->first_wort);
-    std::cout << std::format("Концентрація розведеного розчина: {}%\n", wrt->finish_wort);
-    std::cout << std::format("Об'єм фільтрата: {} мл\n", wrt->vol_filtrate);
-    std::cout << std::format("Об'єм води для розчинення: {:.2f} мл\n", sol.solutions(sol.water_for_solvation)->get_solvation(*wrt));
-    std::cout << std::format("Об'єм розчиненого середовища: {:.2f} мл\n", sol.solutions(sol.total_volume)->get_solvation(*wrt));
+    std::print("Концентрація нерозведеного розчина: {}%\n", wrt->first_wort);
+    std::print("Концентрація розведеного розчина: {}%\n", wrt->finish_wort);
+    std::print("Об'єм фільтрата: {} мл\n", wrt->vol_filtrate);
+    std::print("Об'єм води для розчинення: {:.2f} мл\n", sol.solutions(sol.water_for_solvation)->get_solvation(*wrt));
+    std::print("Об'єм розчиненого середовища: {:.2f} мл\n", sol.solutions(sol.total_volume)->get_solvation(*wrt));
 }
 
 void file_info::see_info(wort_solution *wrt)
@@ -67,7 +67,7 @@ void file_info::see_info(wort_solution *wrt)
     csv << std::format(loc, formatter, "Об'єм розчиненого середовища:", sol.solutions(sol.total_volume)->get_solvation(*wrt), "мл");
     csv << std::endl;
     
-    std::cout << "Дані додані у файл wort-dada.csv" << std::endl;
+    std::print("Дані додані у файл wort-dada.csv\n");
 }
 
 //--------------------------------------------------
