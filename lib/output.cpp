@@ -44,30 +44,86 @@ void inf_indo::see_info()
 
 void screen_info::see_info(wort_solution *wrt)
 {
-    std::print("Концентрація нерозведеного розчина: {}%\n", wrt->first_wort);
-    std::print("Концентрація розведеного розчина: {}%\n", wrt->finish_wort);
-    std::print("Об'єм фільтрата: {} мл\n", wrt->vol_filtrate);
-    std::print("Об'єм води для розчинення: {:.2f} мл\n", sol.solutions(sol.water_for_solvation)->get_solvation(*wrt));
-    std::print("Об'єм розчиненого середовища: {:.2f} мл\n", sol.solutions(sol.total_volume)->get_solvation(*wrt));
+    enum class measure_type
+    {
+        percent,
+        filt,
+        volume
+    };
+
+    auto line = [&](measure_type mesure, const std::string_view &label, const auto &value) -> void
+    {
+        constexpr std::string_view percent = "{} {}%\n";
+        constexpr std::string_view flt = "{} {:.0f} мл\n";
+        constexpr std::string_view volume = "{} {:.2f} мл\n";
+
+        switch (mesure)
+        {
+        case measure_type::percent:
+            std::print(percent, label, value);
+            break;
+
+        case measure_type::filt:
+            std::print(flt, label, value);
+            break;
+
+        case measure_type::volume:
+            std::print(volume, label, value);
+            break;
+        }
+    };
+
+    line(measure_type::percent, "Концентрація нерозведеного розчина:", wrt->first_wort);
+    line(measure_type::percent, "Концентрація розведеного розчина:", wrt->finish_wort);
+    line(measure_type::filt, "Об'єм фільтрата:", wrt->vol_filtrate);
+    line(measure_type::volume, "Об'єм води для розчинення:", sol.solutions(sol.water_for_solvation)->get_solvation(*wrt));
+    line(measure_type::volume, "Об'єм розчиненого середовища:", sol.solutions(sol.total_volume)->get_solvation(*wrt));
 }
 
 void file_info::see_info(wort_solution *wrt)
 {
+    enum class measure_type
+    {
+        percent,
+        filt,
+        volume
+    };
+
     namespace file_system = std::filesystem;
     const file_system::path file{"wort-dada.csv"};
     std::ofstream csv(file, std::ios::app);
-
     auto loc = std::locale{"uk_UA.utf8"};
-    constexpr std::string_view formatter = "\"{}\",\"{:.2Lf}\"\n";
 
-    csv << std::format(loc, formatter, "Концентрація нерозведеного розчина (%):", wrt->first_wort);
-    csv << std::format(loc, formatter, "Концентрація розведеного розчина (%):", wrt->finish_wort);
-    csv << std::format(loc, formatter, "Об'єм фільтрата (мл):", wrt->vol_filtrate);
-    csv << std::format(loc, formatter, "Об'єм води для розчинення (мл):", sol.solutions(sol.water_for_solvation)->get_solvation(*wrt));
-    csv << std::format(loc, formatter, "Об'єм розчиненого середовища (мл):", sol.solutions(sol.total_volume)->get_solvation(*wrt));
+    auto write = [&](measure_type mesure, const std::string_view &label, const auto &value) -> void
+    {
+        constexpr std::string_view percent = "\"{} (%):\",\"{:L}\"\n";
+        constexpr std::string_view flt = "\"{} (мл):\",\"{:.0Lf}\"\n";
+        constexpr std::string_view volume = "\"{} (мл):\",\"{:.2Lf}\"\n";
+
+        switch (mesure)
+        {
+        case measure_type::percent:
+            csv << std::format(loc, percent, label, value);
+            break;
+
+        case measure_type::filt:
+            csv << std::format(loc, flt, label, value);
+            break;
+
+        case measure_type::volume:
+            csv << std::format(loc, volume, label, value);
+            break;
+        }
+    };
+
+    write(measure_type::percent, "Концентрація нерозведеного розчина", wrt->first_wort);
+    write(measure_type::percent, "Концентрація розведеного розчина", wrt->finish_wort);
+    write(measure_type::filt, "Об'єм фільтрата", wrt->vol_filtrate);
+    write(measure_type::volume, "Об'єм води для розчинення", sol.solutions(sol.water_for_solvation)->get_solvation(*wrt));
+    write(measure_type::volume, "Об'єм розчиненого середовища", sol.solutions(sol.total_volume)->get_solvation(*wrt));
     csv << std::endl;
     
-    std::print("Дані додані у файл wort-dada.csv\n");
+    std::print("Дані додані у файл {}\n", file.string());
 }
 
 //--------------------------------------------------
