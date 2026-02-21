@@ -1,5 +1,4 @@
 #include <iostream>
-#include <stdexcept>
 #include "../include/wort.h"
 
 class finished_water : public wort
