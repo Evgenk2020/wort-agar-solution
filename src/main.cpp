@@ -44,11 +44,6 @@ int main(int argc, char *argv[])
     if (argc == 5 && (arg == k_data || arg == k_file))
     {
         wort_solution wort{};
-
-       /*  wort.at(field::first_wort) = std::strtod(argv[2], nullptr);
-        wort.at(field::finish_wort) = std::strtod(argv[3], nullptr);
-        wort.at(field::vol_filtrate) = std::strtod(argv[4], nullptr); */
-
         int counter{2};
         for (auto &a : wort.values)
         {
