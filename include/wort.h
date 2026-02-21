@@ -2,12 +2,24 @@
 #define WORT_H
 
 #include <memory>
+#include <array>
+
+enum class field
+{
+    first_wort,
+    finish_wort,
+    vol_filtrate,
+    count
+};
 
 struct wort_solution
 {
-    float first_wort;
-    float finish_wort;
-    float vol_filtrate;
+    std::array<float, static_cast<int>(field::count)> values{};
+
+    float &at(field f)
+    {
+        return values[static_cast<int>(f)];
+    }
 };
 
 class wort

@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include <cstdlib>
+#include <charconv>
 
 #include "../include/output.h"
 
@@ -43,9 +44,22 @@ int main(int argc, char *argv[])
     if (argc == 5 && (arg == k_data || arg == k_file))
     {
         wort_solution wort{};
-        wort.first_wort = std::strtod(argv[2], nullptr);
-        wort.finish_wort = std::strtod(argv[3], nullptr);
-        wort.vol_filtrate = std::strtod(argv[4], nullptr);
+        int counter{2};
+        for (auto &a : wort.values)
+        {
+            const std::string &str = argv[counter];
+            float val{};
+            auto [ptr, ec] = std::from_chars(str.data(), str.data() + str.size(), val);
+
+            if (ec != std::errc())
+            {
+                std::cerr << "Invalid numeric value\n";
+                std::exit(EXIT_FAILURE);
+            }
+
+            a = val;
+            counter++;
+        }
 
         if (arg == k_data)
         {

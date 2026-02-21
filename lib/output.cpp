@@ -73,9 +73,9 @@ void screen_info::see_info(wort_solution *wrt)
         }
     };
 
-    line(measure_type::percent, "Концентрація нерозведеного розчина:", wrt->first_wort);
-    line(measure_type::percent, "Концентрація розведеного розчина:", wrt->finish_wort);
-    line(measure_type::filt, "Об'єм фільтрата:", wrt->vol_filtrate);
+    line(measure_type::percent, "Концентрація нерозведеного розчина:", wrt->at(field::first_wort));
+    line(measure_type::percent, "Концентрація розведеного розчина:", wrt->at(field::finish_wort));
+    line(measure_type::filt, "Об'єм фільтрата:", wrt->at(field::vol_filtrate));
     line(measure_type::volume, "Об'єм води для розчинення:", sol.solutions(sol.water_for_solvation)->get_solvation(*wrt));
     line(measure_type::volume, "Об'єм розчиненого середовища:", sol.solutions(sol.total_volume)->get_solvation(*wrt));
 }
@@ -116,9 +116,9 @@ void file_info::see_info(wort_solution *wrt)
         }
     };
 
-    write(measure_type::percent, "Концентрація нерозведеного розчина", wrt->first_wort);
-    write(measure_type::percent, "Концентрація розведеного розчина", wrt->finish_wort);
-    write(measure_type::filt, "Об'єм фільтрата", wrt->vol_filtrate);
+    write(measure_type::percent, "Концентрація нерозведеного розчина", wrt->at(field::first_wort));
+    write(measure_type::percent, "Концентрація розведеного розчина", wrt->at(field::finish_wort));
+    write(measure_type::filt, "Об'єм фільтрата", wrt->at(field::vol_filtrate));
     write(measure_type::volume, "Об'єм води для розчинення", sol.solutions(sol.water_for_solvation)->get_solvation(*wrt));
     write(measure_type::volume, "Об'єм розчиненого середовища", sol.solutions(sol.total_volume)->get_solvation(*wrt));
     csv << std::endl;

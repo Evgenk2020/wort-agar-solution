@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.31)
-project(wort VERSION 1.0.2 LANGUAGES CXX)
+project(wort VERSION 1.0.3 LANGUAGES CXX)
 
 # -------------------------------------------------------------
 # to switch packaging to *.tar.gz >>> set(assemble_tgz ON)
