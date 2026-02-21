@@ -73,7 +73,7 @@ void screen_info::see_info(wort_solution *wrt)
         }
     };
 
-    line(measure_type::percent, "Концентрація нерозведеного розчина:", wrt->at(field::finish_wort));
+    line(measure_type::percent, "Концентрація нерозведеного розчина:", wrt->at(field::first_wort));
     line(measure_type::percent, "Концентрація розведеного розчина:", wrt->at(field::finish_wort));
     line(measure_type::filt, "Об'єм фільтрата:", wrt->at(field::vol_filtrate));
     line(measure_type::volume, "Об'єм води для розчинення:", sol.solutions(sol.water_for_solvation)->get_solvation(*wrt));
