@@ -15,7 +15,7 @@ int main(int argc, char *argv[])
 
     if (argc < 2)
     {
-        std::cout << "error... use -h or --help for details\n";
+        std::cout << "error.. data is empty. try [-h | --help] for more info\n";
 
         return 1;
     }
