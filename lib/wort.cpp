@@ -37,6 +37,7 @@ std::unique_ptr<wort> solution::solutions(solution_type types)
     default:
     {
         throw "Помилка. Відсутні дані...";
+        std::exit(EXIT_FAILURE);
     }
     }
 }
